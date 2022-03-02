@@ -14,7 +14,7 @@ const ProductSchema = new mongoose.Schema({
     cest: { type: String },
     unit_of_measure: { type: String },
     quantity: { type: Number },
-    unitary_value: { type: String },
+    unitary_value: { type: Number },
     total_amount: { type: Number },
     supplier_company: {
         cnpj: { type: String },
