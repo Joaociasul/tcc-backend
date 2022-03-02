@@ -16,6 +16,11 @@ const ProductSchema = new mongoose.Schema({
     quantity: { type: Number },
     unitary_value: { type: Number },
     total_amount: { type: Number },
+    purchase_date: { type: Date },
+    created_at: {
+        type:Date,
+        default: new Date()
+    },
     supplier_company: {
         cnpj: { type: String },
         corporate_name: { type: String },

@@ -78,6 +78,7 @@ module.exports = {
                     const xml_name = xml.name
                     const company = user.company
                     const corporate = result?.nfeProc?.NFe[0]?.infNFe[0]?.emit[0]
+                    const purchase_date = result?.nfeProc?.NFe[0].infNFe[0].ide[0].dhEmi[0]
                     const supplier_company = {
                         cnpj: corporate?.CNPJ[0],
                         corporate_name: corporate?.xNome[0],
@@ -111,6 +112,7 @@ module.exports = {
                             unitary_value: Number(item?.vUnCom ? item?.vUnCom[0]: 0),
                             total_amount: Number(item?.vProd ? item?.vProd[0] : null),
                             supplier_company,
+                            purchase_date
                         }
                         products.push(body)
                     }
