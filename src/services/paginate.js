@@ -2,7 +2,6 @@ module.exports = {
     paginateOptions: (req) => {
         const perPage = req.query?.perPage ?? 20;
         const page = req.query?.page ?? 1;
-
         const myCustomLabels = {
             totalDocs: 'total',
             docs: 'data',

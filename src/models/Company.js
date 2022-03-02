@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
-const { pages, options, paginateOptions } = require('../services/paginate')
+const { paginateOptions } = require('../services/paginate')
 const mongoosePaginate = require('mongoose-paginate-v2');
-const { PaginationParameters } = require('mongoose-paginate-v2');
-
+const { mongooseValidator } = require('../services/utils');
 const CompanySchema = new mongoose.Schema({
-    corporateName: {
+    corporate_name: {
         type: String,
         required: true
     },
@@ -12,11 +11,11 @@ const CompanySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    fantasyName: {
+    fantasy_name: {
         type: String,
         required: true
     },
-    phoneNumber: {
+    phone_number: {
         type: String,
         required: true
     },
@@ -41,7 +40,7 @@ const CompanySchema = new mongoose.Schema({
     settings: {
         type: Object
     },
-    descricao: String
+    description: String
 })
 
 CompanySchema.plugin(mongoosePaginate)
@@ -51,8 +50,11 @@ class Company {
     static createCompany = (data) => {
         return new Promise((resolve, reject) => {
             try {
-                const create = CompanyModel.create(data);
-                resolve(create);
+                new CompanyModel(data).save((err, company) => {
+                    mongooseValidator(err).
+                    then(() => resolve(company))
+                    .catch(e =>reject(e))
+                });
             } catch (error) {
                 throw reject(error);
             }
@@ -82,6 +84,9 @@ class Company {
         return new Promise((resolve, reject) => {
             try {
                 const data = CompanyModel.findById(_id);
+                if(!data) {
+                    throw new Error('Company not found!');
+                }
                 resolve(data);
             } catch (error) {
                 reject(error);

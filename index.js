@@ -1,9 +1,11 @@
-(function () {
+
     const express = require('express');
     const app = express();
     require('dotenv').config()
     const http = require('http');
     const bodyParser = require('body-parser')
+    const fileupload = require("express-fileupload");
+    app.use(fileupload());
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
     const mongoose = require('mongoose')
@@ -36,5 +38,5 @@
         });
     })
     
-})()
+
 

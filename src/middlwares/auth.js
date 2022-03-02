@@ -1,5 +1,6 @@
 
 const jwt = require('jsonwebtoken')
+const User = require('../models/User')
 const validateToken = (req, socket = false) => {
     const authHeader = !socket ? (req.headers?.authorization) : req.handshake.headers?.authorization
     const token = authHeader && authHeader.split(' ')[1]
@@ -11,9 +12,9 @@ const validateToken = (req, socket = false) => {
 }
 module.exports = {
     setToken :(user) => {
-        return jwt.sign({ user:user }, process.env.TOKEN_SECRET, { expiresIn: '18000s' });
+        return jwt.sign({ user:user }, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
     },
-    auth :(req, res, next) => {
+    auth : async(req, res, next) => {
         try {
             validateToken(req)
             next()
