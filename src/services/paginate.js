@@ -1,3 +1,7 @@
+const fieldsRequiredEquals = {
+    cod: true,
+    ean_cod:true
+}
 module.exports = {
     paginateOptions: (req) => {
         const perPage = req.query?.perPage ?? 50;
@@ -16,6 +20,7 @@ module.exports = {
 
         for (const i in req.query) {
             if (Object.hasOwnProperty.call(req.query, i)) {
+                if(fieldsRequiredEquals[i]) continue
                 req.query[i] = {
                     $regex: req.query[i]
                 };

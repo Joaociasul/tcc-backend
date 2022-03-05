@@ -3,13 +3,13 @@ const { paginateOptions } = require('../services/paginate')
 const mongoosePaginate = require('mongoose-paginate-v2');
 const { mongooseValidator } = require('../services/utils');
 const ProductSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true, index: true },
     user_id: { type: mongoose.Schema.Types.ObjectId },
     xml_name: { type: String },
     company: { type: mongoose.Schema.Types.ObjectId },
     description: { type: String, required: false },
-    ean_cod: { type: String, required: false },
-    cod: { type: String, required: true },
+    ean_cod: { type: String, required: false, index: true },
+    cod: { type: String, required: true, index: true },
     ncm: { type: String },
     cest: { type: String },
     unit_of_measure: { type: String },

@@ -6,6 +6,7 @@ const UserController = require('../controllers/UserController');
 const {
     auth
 } = require('../middlwares/auth');
+const { sendMessageToClient } = require('../sockets/sockets');
 const app = express();
 
 const urlCompany = '/company'
@@ -33,6 +34,9 @@ app.put(urlProduct + '/:_id', auth, ProductController.updateAction)
 app.get(urlProduct + '/paginate', auth, ProductController.paginate)
 app.post(urlProduct + '/xml-import', auth, ProductController.importXml )
 
-// 
+app.get('/socket/hello', (req, res) => {
+    sendMessageToClient('hello', {ping:true})
+    res.status(200).send('ok')
+})
 
 module.exports = app;

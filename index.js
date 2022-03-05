@@ -1,6 +1,8 @@
 
     const express = require('express');
     const app = express();
+    const cors = require('cors')
+    app.use(cors({origin:'*',methods: ["*"]}))
     require('dotenv').config()
     const http = require('http');
     const bodyParser = require('body-parser')
@@ -21,13 +23,14 @@
             methods: ["GET", "POST"],
         }
     });
+    
     module.exports = io
-    const cors = require('cors')
+
     const router = require('./src/routes/router');
     app.use(router)
     const { authSocket } = require('./src/middlwares/auth');
     io.use(authSocket)
-    app.use(cors({origin:'*',methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']}))
+
     app.get('/', (req, res) => {
         res.send({ping:true})
     });

@@ -184,7 +184,7 @@ class User {
                     response._doc._token = setToken(user._id)
                     delete response._doc.password
                     resolve(response._doc)
-                })
+                }).populate('roles').populate('company')
             } catch (error) {
                 reject(error)
             }
@@ -192,9 +192,8 @@ class User {
     }
     static refreshToken(refresh_token) {
         return new Promise( (resolve, reject) => {
-            console.log(refresh_token)
             UserModel
-            .findOne({refresh_token})
+            .findOne({refresh_token}).populate('roles').populate('company')
             .exec((err, user) => {
                 if(err) {
                     return reject(err)
