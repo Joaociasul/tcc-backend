@@ -6,14 +6,15 @@ const UserController = require('../controllers/UserController');
 const {
     auth
 } = require('../middlwares/auth');
+const { checkRoot } = require('../middlwares/permission');
 const { sendMessageToClient } = require('../sockets/sockets');
 const app = express();
 
 const urlCompany = '/company'
-app.post(urlCompany, auth, CompanyController.createAcion)
-app.get(urlCompany + '/getById/:_id?', auth, CompanyController.index) //to filter, use req.query
-app.put(urlCompany + '/:_id', auth, CompanyController.updateAction)
-app.get(urlCompany + '/paginate', auth, CompanyController.paginate)
+app.post(urlCompany, auth, checkRoot,  CompanyController.createAcion)
+app.get(urlCompany + '/getById/:_id?', auth, checkRoot,CompanyController.index) //to filter, use req.query
+app.put(urlCompany + '/:_id', auth, checkRoot,CompanyController.updateAction)
+app.get(urlCompany + '/paginate', auth,checkRoot, CompanyController.paginate)
 
 const urlUser = '/user'
 app.post(urlUser, auth,  UserController.createAcion)

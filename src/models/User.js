@@ -103,7 +103,7 @@ class User {
     static getById(_id) {
         return new Promise((resolve, reject) => {
             try {
-                const data = UserModel.findById(_id);
+                const data = UserModel.findById(_id).populate('roles');
                 resolve(data);
             } catch (error) {
                 reject(error);
