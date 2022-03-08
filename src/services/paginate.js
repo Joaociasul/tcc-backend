@@ -4,7 +4,7 @@ const fieldsRequiredEquals = {
 }
 module.exports = {
     paginateOptions: (req) => {
-        const perPage = req.query?.perPage ?? 50;
+        const perPage = req.query?.perPage ?? 8;
         const page = req.query?.page ?? 1;
         const myCustomLabels = {
             totalDocs: 'total',

@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const express = require('express');
 const CompanyController = require('../controllers/CompanyController');
 const ProductController = require('../controllers/ProductController');
@@ -15,6 +16,7 @@ app.post(urlCompany, auth, checkRoot,  CompanyController.createAcion)
 app.get(urlCompany + '/getById/:_id?', auth, checkRoot,CompanyController.index) //to filter, use req.query
 app.put(urlCompany + '/:_id', auth, checkRoot,CompanyController.updateAction)
 app.get(urlCompany + '/paginate', auth,checkRoot, CompanyController.paginate)
+app.delete(urlCompany + '/:_id', auth, checkRoot,CompanyController.delete)
 
 const urlUser = '/user'
 app.post(urlUser, auth,  UserController.createAcion)
@@ -38,6 +40,13 @@ app.post(urlProduct + '/xml-import', auth, ProductController.importXml )
 app.get('/socket/hello', (req, res) => {
     sendMessageToClient('hello', {ping:true})
     res.status(200).send('ok')
+})
+
+app.get('/getByCnpj/:cnpj', async (req, res) => {
+    await axios.get('https://www.receitaws.com.br/v1/cnpj/' + req.params.cnpj)
+    .then(data => {
+        res.status(200).send(data.data)
+    }).catch(e => res.status(400).send({error: {message:error.message}}))
 })
 
 module.exports = app;

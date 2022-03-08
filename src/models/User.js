@@ -206,6 +206,11 @@ class User {
                     const error = {message:{validator:{auth:false, message: "expired"}}}
                     return reject(error)
                 }
+                user.refresh_token = crypto.randomUUID()
+                const date = new Date()
+                const newDate = date.setDate(date.getDate() + 7)
+                user.exp_refresh_token = (new Date(newDate)).getTime()
+                user.save()
                 const response = {...user}
                 response._doc._exp_token = (new Date()).getTime()  + 1795 * 1000
                 response._doc._token = setToken(user._id)
