@@ -60,7 +60,7 @@ module.exports = {
         }
         for (const xml of xmls) {
             traveled ++
-            if(xml.mimetype !== 'application/xml'){
+            if(xml.mimetype !== 'application/xml' && xml.mimetype !== 'text/xml'){
                 continue
             }
             try {

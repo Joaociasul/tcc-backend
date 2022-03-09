@@ -9,19 +9,24 @@ const {
 const CompanySchema = new mongoose.Schema({
     corporate_name: {
         type: String,
-        required: true
+        required: true,
+        uppercase:true,
+
     },
     cnpj: {
         type: String,
-        required: true
+        required: true,
+        uppercase:true,
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        lowercase:true
     },
     fantasy_name: {
         type: String,
-        required: true
+        required: true,
+        uppercase:true,
     },
     phone_number: {
         type: String,
@@ -38,23 +43,28 @@ const CompanySchema = new mongoose.Schema({
         },
         street: {
             type: String,
-            required: true
+            required: true,
+            uppercase:true,
         },
         district: {
             type: String,
-            required: true
+            required: true,
+            uppercase:true,
         },
         complement: {
             type: String,
-            required: true
+            required: true,
+            uppercase:true,
         },
         city: {
             type: String,
-            required: true
+            required: true,
+            uppercase:true,
         },
         uf: {
             type: String,
-            required: true
+            required: true,
+            uppercase:true,
         },
     },
     settings: {
