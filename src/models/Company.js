@@ -152,8 +152,21 @@ class Company {
                     filter,
                     options
                 } = paginateOptions(req)
-                const data = CompanyModel.paginate(filter, options)
-                resolve(data)
+                const data = CompanyModel.paginate(filter, options, (err, resp) => {
+                    try {
+                        const result = {...resp}
+                        result.data = resp.data.map(el => {
+                            const obj = {...el}
+                            obj._doc.label = el.fantasy_name
+                            obj._doc.value = el._id
+                            return obj._doc
+                        })
+                        resolve(result)
+                    } catch (error) {
+                        throw error
+                    } 
+                })
+               
             } catch (error) {
                 reject(error)
             }

@@ -38,7 +38,8 @@ const UserSchema = new mongoose.Schema({
         required: false,
     },
     refresh_token:{type: mongoose.Schema.Types.String},
-    exp_refresh_token: {type: mongoose.Schema.Types.Number}
+    exp_refresh_token: {type: mongoose.Schema.Types.Number},
+    phone_number: {type:mongoose.Schema.Types.String }
 })
 
 UserSchema.plugin(mongoosePaginate)
@@ -148,6 +149,7 @@ class User {
                     filter,
                     options
                 } = paginateOptions(req)
+                options.populate = 'company'
                 const data = UserModel.paginate(filter, options)
                 resolve(data)
             } catch (error) {
